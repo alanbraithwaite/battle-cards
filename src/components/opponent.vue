@@ -13,7 +13,7 @@
     name: 'opponent',
     data() {
       return {
-        newGame:
+
 
       }
     },

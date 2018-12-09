@@ -1,16 +1,12 @@
 <template>
-  <div class="player container-fluid">
-    <div class="row">
-      <div class="col">
-        {{}}
-      </div>
-    </div>
+  <div class="">
+
   </div>
 </template>
 
 <script>
   export default {
-    name: 'player',
+    name: '',
     data() {
       return {
 
