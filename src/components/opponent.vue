@@ -2,7 +2,7 @@
   <!-- <div class="opponent" container-fluid>
     <div class="row"> -->
   <div class="opponent" v-if="opponent">
-    <img v-if="!opponent.visible" src="@/assets/Card_back_Power_Core.png" class="hidden" height="150">
+    <img v-if="!opponent.visible" src="@/assets/Card_back_Power_Core.png" class="hidden">
     <div class="opp-card" v-else-if="opponent.visible">
       <img :src="opponent.img" height="150">
       <span class="defense">{{opponent.defense}}</span>
