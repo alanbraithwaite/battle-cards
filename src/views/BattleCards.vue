@@ -2,7 +2,6 @@
   <div class="home container-fluid">
     <div class="row">
       <div class="col" justify-center>
-        <!-- <pickDeck /> -->
         <pickDeck v-if="!game.id" />
         <!-- <gameOver v-if="game.id" /> -->
       </div>
@@ -11,7 +10,6 @@
 </template>
 
 <script>
-  // @is an alias to / src
   import pickDeck from "@/components/PickDeck.vue"
   // import deck from "@/components/GameOver.vue"
 
