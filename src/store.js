@@ -22,15 +22,31 @@ export default new Vuex.Store({
       state.game = game
       router.push({ name: "game", params: { gameId: game.id } })
       console.log(state.game)
+    },
+    setOpponent(state, card) {
+      state.opponent = card
+    },
+    setPlayer(state, card) {
+      state.player = card
     }
   },
+
   actions: {
-    startGame({ commit }, gameId) {
-      api.post("/")
+    startGame({ dispatch, commit }, deckNum, playerName) {
+      let gameCfg = { "playerName": playerName, "set": deckNum }
+      api.post("/", { "gameConfig": gameCfg })
         .then(res => {
           console.log(res)
-          commit('setGame', res.data.game)
+          commit("setGame", res.data.game)
         })
-    }
+    },
+    setOpponent({ dispatch, commit }, card) {
+      commit("setOpponent", card)
+
+    },
+    setPlayer({ dispatch, commit }, card) {
+      commit("setPlayer", card)
+
+    },
   }
 })

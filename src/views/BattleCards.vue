@@ -2,8 +2,9 @@
   <div class="home container-fluid">
     <div class="row">
       <div class="col" justify-center>
+        <!-- <pickDeck /> -->
         <pickDeck v-if="!game.id" />
-        <gameOver v-if="game.id" />
+        <!-- <gameOver v-if="game.id" /> -->
       </div>
     </div>
   </div>
@@ -11,7 +12,7 @@
 
 <script>
   // @is an alias to / src
-  // import deck from "@/components/PickDeck.vue"
+  import pickDeck from "@/components/PickDeck.vue"
   // import deck from "@/components/GameOver.vue"
 
 
@@ -22,11 +23,15 @@
         // newGame: {}
       }
     },
-
+    computed: {
+      game() {
+        return this.$store.state.game
+      }
+    },
 
     components: {
       // newGame: {}
-      PickDeck,
+      pickDeck,
       // GameOver
     },
 
