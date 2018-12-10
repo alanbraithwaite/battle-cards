@@ -20,7 +20,7 @@
           </div>
         </div>
       </div>
-      <!-- <h2 v-if="opponent">{{opponent.name}}</h2> -->
+      <h2 v-if="opponent">{{opponent.name}}</h2>
       <opponent id="the-opp" />
     </div>
     <!-- <button class="fight" @click='fight({
@@ -37,6 +37,8 @@
       <player id="the-plyr" />
       <div class="row player-hand  ">
         <div v-for="card in game.player.hand" @click="setPlayer(card)" :key="card.id">
+          <!-- <player>{{player}}</player> -->
+
           <div class="plyr-card">
             <span class="defense">{{card.defense}}</span>
             <i class="fas fa-shield-alt shield"></i>
@@ -63,7 +65,7 @@
 </template>
 
 <script>
-  import Player from "@/components/Player";
+  // import Player from "@/components/Player";
   import Opponent from "@/components/Opponent";
 
 
@@ -98,7 +100,7 @@
     },
     components: {
       Opponent,
-      Player
+      // Player
     }
   }
 
