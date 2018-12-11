@@ -1,9 +1,10 @@
 <template>
-  <div class="opponent" container-fluid>
+  <div class="opponent card" container-fluid>
     <div class="row opponent">
       <div class="opponent" v-if="card">
         <img v-if="!card.visible" src="@/assets/Card_back_Power_Core.png" class="hidden">
         <div class="opp-card" v-else-if="card.visible">
+          <span class="health">{{card.name}}</span>
           <img :src="card.img" height="150">
           <span class="defense">{{card.defense}}</span>
           <i class="fas fa-shield-alt shield"></i>
@@ -38,5 +39,6 @@
 <style>
   .opponent {
     white-space: nowrap;
+    border: 0px blue;
   }
 </style>
