@@ -13,8 +13,8 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     game: {},
-    player: undefined,
-    opponent: undefined
+    playerCard: undefined,
+    opponentCard: undefined
 
   },
   mutations: {
@@ -23,30 +23,72 @@ export default new Vuex.Store({
       router.push({ name: "game", params: { gameId: game.id } })
       console.log(state.game)
     },
-    setOpponent(state, card) {
-      state.opponent = card
+    setOpponentCard(state, card) {
+      state.opponentCard = card
     },
-    setPlayer(state, card) {
-      state.player = card
-    }
+    setPlayerCard(state, card) {
+      state.playerCard = card
+    },
+    resetGame(state, game) {
+      state.game = game
+    },
+
   },
 
   actions: {
-    startGame({ dispatch, commit }, deckNum, playerName) {
-      let gameCfg = { "playerName": playerName, "set": deckNum }
+    // startGame({ dispatch, commit }, deckNum, playerName) {
+    startGame({ dispatch, commit }, payLoad) {
+      console.log(payLoad)
+      let gameCfg = { "playerName": payLoad.playerName, "set": payLoad.deckNum }
       api.post("/", { "gameConfig": gameCfg })
         .then(res => {
           console.log(res)
           commit("setGame", res.data.game)
         })
     },
-    setOpponent({ dispatch, commit }, card) {
-      commit("setOpponent", card)
+    setOpponentCard({ dispatch, commit }, card) {
+      commit("setOpponentCard", card)
 
     },
-    setPlayer({ dispatch, commit }, card) {
-      commit("setPlayer", card)
+    setPlayerCard({ dispatch, commit }, card) {
+      commit("setPlayerCard", card)
 
     },
+    getGamebyId({ dispatch, commit, state }, gameId) {
+      api.get(`/${gameId}`)
+        .then(res => {
+          console.log(res, "Game Res");
+          commit("setGame", res.data.data);
+          commit('setPlayerCard', state.playerCard);
+          commit('setOpponentCard', state.opponentCard);
+        })
+
+    },
+    duel({ dispatch, commit, state }) {
+      let payload = {
+        "playerCardId": state.playerCard.id,
+        "opponentCardId": state.opponentCard.id
+      }
+      api.put(`/${state.game.id}`, payload)
+        .then(res => {
+          console.log(res);
+          commit("setGame", res.data.game);
+          let playerCard = res.data.game.player.hand.find(h => {
+            return h.id == payload.playerCardId
+          })
+          let opponentCard = res.data.game.opponent.hand.find(o => {
+            return o.id == payload.opponentCardId
+          })
+          commit('setPlayerCard', playerCard)
+          commit('setOpponentCard', opponentCard)
+        })
+    },
+    quit({ dispatch, commit }, gameId) {
+      commit('setPlayerCard', undefined)
+      commit('setOpponentCard', undefined)
+      commit('resetGame', {})
+      api.delete(`/${gameId}`)
+        .then(res => router.push({ name: 'battleCards' }))
+    }
   }
 })
