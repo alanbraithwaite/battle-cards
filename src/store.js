@@ -36,7 +36,6 @@ export default new Vuex.Store({
   },
 
   actions: {
-    // startGame({ dispatch, commit }, deckNum, playerName) {
     startGame({ dispatch, commit }, payLoad) {
       console.log(payLoad)
       let gameCfg = { "playerName": payLoad.playerName, "set": payLoad.deckNum }
